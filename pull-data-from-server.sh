@@ -1,3 +1,4 @@
+cd data
 sftp last@felixlast.de <<EOF
 get wave-forecast/output/*.csv
 rm wave-forecast/output/*.csv
