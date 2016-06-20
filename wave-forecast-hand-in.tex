@@ -1,0 +1,1347 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font than Computer Modern for most use cases
+    \usepackage{palatino}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{wave-forecast-hand-in}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{os}
+        \PY{k+kn}{import} \PY{n+nn}{math}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{random}
+        \PY{k+kn}{import} \PY{n+nn}{dateutil}\PY{n+nn}{.}\PY{n+nn}{parser}
+        \PY{k+kn}{import} \PY{n+nn}{datetime}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{dates}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{k+kn}{from} \PY{n+nn}{pandas}\PY{n+nn}{.}\PY{n+nn}{tools}\PY{n+nn}{.}\PY{n+nn}{plotting} \PY{k}{import} \PY{n}{scatter\PYZus{}matrix}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{linear\PYZus{}model}\PY{p}{,} \PY{n}{preprocessing}
+        \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{sm}
+        \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{display}
+        \PY{k+kn}{import} \PY{n+nn}{warnings}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{whitegrid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k+kn}{import} \PY{n+nn}{grab\PYZus{}data} \PY{k}{as} \PY{n+nn}{grab\PYZus{}data}
+\end{Verbatim}
+
+    \section{Helper Functions}\label{helper-functions}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{default\PYZus{}fig\PYZus{}width} \PY{o}{=} \PY{l+m+mi}{15}
+        \PY{n}{target\PYZus{}var} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{surf\PYZus{}avg}\PY{l+s+s1}{\PYZsq{}}
+        \PY{k}{def} \PY{n+nf}{plot\PYZus{}datetime\PYZus{}series}\PY{p}{(}\PY{n}{series}\PY{p}{,} \PY{n}{title} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{xlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average Wave Height in m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+            \PY{k}{if}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{series}\PY{p}{)} \PY{o+ow}{is} \PY{o+ow}{not} \PY{n+nb}{list}\PY{p}{)}\PY{p}{:}
+                \PY{n}{series} \PY{o}{=} \PY{p}{[}\PY{n}{series}\PY{p}{]}
+            \PY{k}{if}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{label}\PY{p}{)} \PY{o+ow}{is} \PY{o+ow}{not} \PY{n+nb}{list}\PY{p}{)}\PY{p}{:}
+                \PY{n}{label} \PY{o}{=} \PY{p}{[}\PY{n}{label}\PY{p}{]}
+            \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{s} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{series}\PY{p}{)}\PY{p}{:}
+                \PY{n}{s} \PY{o}{=} \PY{n}{s}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+                \PY{n}{s}\PY{o}{.}\PY{n}{sort\PYZus{}index}\PY{p}{(}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+                \PY{k}{if} \PY{n+nb}{type}\PY{p}{(}\PY{n}{s}\PY{o}{.}\PY{n}{index}\PY{p}{)} \PY{o+ow}{is} \PY{o+ow}{not} \PY{n}{pd}\PY{o}{.}\PY{n}{tseries}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{DatetimeIndex}\PY{p}{:}
+                    \PY{n}{dates} \PY{o}{=} \PY{n}{matplotlib}\PY{o}{.}\PY{n}{dates}\PY{o}{.}\PY{n}{date2num}\PY{p}{(}\PY{p}{[}\PY{n}{dateutil}\PY{o}{.}\PY{n}{parser}\PY{o}{.}\PY{n}{parse}\PY{p}{(}\PY{n}{dt}\PY{p}{)} \PY{k}{for} \PY{n}{dt} \PY{o+ow}{in} \PY{n}{s}\PY{o}{.}\PY{n}{index}\PY{p}{]}\PY{p}{)}
+                \PY{k}{else}\PY{p}{:}
+                    \PY{n}{dates} \PY{o}{=} \PY{n}{s}\PY{o}{.}\PY{n}{index}
+                \PY{n}{plt}\PY{o}{.}\PY{n}{plot\PYZus{}date}\PY{p}{(}
+                    \PY{n}{dates}\PY{p}{,}
+                    \PY{n}{s}\PY{o}{.}\PY{n}{values}\PY{p}{,}
+                    \PY{n}{label}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                \PY{p}{)}
+            \PY{k}{if} \PY{n}{title}\PY{p}{:}
+                \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{title}\PY{p}{)}
+            \PY{k}{if} \PY{n}{ylabel} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{n}{ylabel}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{n}{xlabel}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{gcf}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{autofmt\PYZus{}xdate}\PY{p}{(}\PY{p}{)}
+            \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{series}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{1}\PY{p}{:}
+                \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{[}\PY{n}{s}\PY{o}{.}\PY{n}{name} \PY{k}{for} \PY{n}{s} \PY{o+ow}{in} \PY{n}{series}\PY{p}{]}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+        
+        \PY{k}{def} \PY{n+nf}{plot\PYZus{}scatter\PYZus{}correlation}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{target}\PY{p}{,} \PY{n}{standardize}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{:}
+            \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+            \PY{k}{if} \PY{n}{standardize}\PY{p}{:} \PY{n}{df} \PY{o}{=} \PY{n}{normalize}\PY{p}{(}\PY{n}{df}\PY{p}{)}
+            \PY{n}{ncols} \PY{o}{=} \PY{l+m+mi}{3}
+            \PY{n}{nrows} \PY{o}{=} \PY{n}{math}\PY{o}{.}\PY{n}{ceil}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{o}{/}\PY{n}{ncols}\PY{p}{)}
+            \PY{n}{fig}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{nrows}\PY{o}{=}\PY{n}{nrows}\PY{p}{,} \PY{n}{ncols}\PY{o}{=}\PY{n}{ncols}\PY{p}{,} \PY{n}{sharex}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{sharey}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{n}{default\PYZus{}fig\PYZus{}width}\PY{p}{,}\PY{l+m+mi}{4}\PY{o}{*}\PY{n}{nrows}\PY{p}{)}\PY{p}{)}
+            \PY{n}{fig}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{hspace}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{3}\PY{p}{)}
+            \PY{k}{for} \PY{n}{i}\PY{p}{,}\PY{n}{variable} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{:}
+                \PY{n}{row} \PY{o}{=} \PY{n}{math}\PY{o}{.}\PY{n}{floor}\PY{p}{(}\PY{n}{i} \PY{o}{/} \PY{n}{nrows}\PY{p}{)}
+                \PY{n}{col} \PY{o}{=} \PY{n}{i} \PY{o}{\PYZpc{}} \PY{l+m+mi}{3}
+                \PY{k}{if} \PY{n}{nrows} \PY{o}{\PYZgt{}} \PY{l+m+mi}{1}\PY{p}{:}
+                    \PY{n}{axis} \PY{o}{=} \PY{n}{axes}\PY{p}{[}\PY{n}{row}\PY{p}{,}\PY{n}{col}\PY{p}{]}
+                \PY{k}{else}\PY{p}{:}
+                    \PY{n}{axis} \PY{o}{=} \PY{n}{axes}\PY{p}{[}\PY{n}{col}\PY{p}{]}
+                \PY{n}{correlation} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{variable}\PY{p}{]}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{n}{target}\PY{p}{)}
+                \PY{n}{title} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{corr = }\PY{l+s+si}{\PYZob{}:.5f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{correlation}\PY{p}{)}
+                \PY{n}{sns}\PY{o}{.}\PY{n}{regplot}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{variable}\PY{p}{]}\PY{p}{,} \PY{n}{target}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{axis}\PY{p}{)}
+                \PY{n}{axis}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{n}{title}\PY{p}{)}
+            \PY{n}{unused\PYZus{}axes} \PY{o}{=} \PY{n}{ncols} \PY{o}{*} \PY{n}{nrows} \PY{o}{\PYZhy{}} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{p}{)} 
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{unused\PYZus{}axes}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                \PY{k}{if} \PY{n}{nrows} \PY{o}{\PYZgt{}} \PY{l+m+mi}{1}\PY{p}{:}
+                    \PY{n}{axis} \PY{o}{=} \PY{n}{axes}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{n}{i}\PY{p}{]}
+                \PY{k}{else}\PY{p}{:}
+                    \PY{n}{axis} \PY{o}{=} \PY{n}{axes}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{n}{i}\PY{p}{]}
+                \PY{n}{fig}\PY{o}{.}\PY{n}{delaxes}\PY{p}{(}\PY{n}{axis}\PY{p}{)}
+        
+        \PY{k}{def} \PY{n+nf}{normalize}\PY{p}{(}\PY{n}{df\PYZus{}in}\PY{p}{)}\PY{p}{:}
+            \PY{k}{with} \PY{n}{warnings}\PY{o}{.}\PY{n}{catch\PYZus{}warnings}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                \PY{n}{warnings}\PY{o}{.}\PY{n}{simplefilter}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ignore}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                \PY{k}{return} \PY{n}{df\PYZus{}in}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{preprocessing}\PY{o}{.}\PY{n}{scale}\PY{p}{)}
+        
+        \PY{k}{def} \PY{n+nf}{drop\PYZus{}unused\PYZus{}target\PYZus{}variables}\PY{p}{(}\PY{n}{df\PYZus{}in}\PY{p}{)}\PY{p}{:}
+            \PY{n}{df\PYZus{}out} \PY{o}{=} \PY{n}{df\PYZus{}in}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+            \PY{k}{if} \PY{n}{target\PYZus{}var} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{df\PYZus{}out}\PY{o}{.}\PY{n}{columns}\PY{p}{:}
+                \PY{n}{df\PYZus{}out}\PY{p}{[}\PY{n}{target\PYZus{}var}\PY{p}{]} \PY{o}{=} \PY{n}{calculate\PYZus{}target\PYZus{}variable}\PY{p}{(}\PY{n}{df\PYZus{}out}\PY{p}{)}
+            \PY{k}{return} \PY{n}{df\PYZus{}out}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dew\PYZus{}point}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pressure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{screen\PYZus{}relative\PYZus{}humidity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{temperature}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wave\PYZus{}height}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wave\PYZus{}period}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wind\PYZus{}speed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{target\PYZus{}var}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+    \section{3. Preliminary Analysis}\label{preliminary-analysis}
+
+\subsection{3.1 Variables}\label{variables}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{csv\PYZus{}files} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./data/}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{file} \PY{k}{for} \PY{n}{file} \PY{o+ow}{in} \PY{n}{os}\PY{o}{.}\PY{n}{listdir}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./data/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{if} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.csv}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{in} \PY{n}{file}\PY{p}{]}
+        \PY{n}{df\PYZus{}imported} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{file}\PY{p}{,} \PY{n}{index\PYZus{}col}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)} \PY{k}{for} \PY{n}{file} \PY{o+ow}{in} \PY{n}{csv\PYZus{}files}\PY{p}{]}\PY{p}{)}
+        \PY{n}{df\PYZus{}imported}\PY{o}{.}\PY{n}{index} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DatetimeIndex}\PY{p}{(}\PY{n}{df\PYZus{}imported}\PY{o}{.}\PY{n}{sort\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+        \PY{n}{grouped} \PY{o}{=} \PY{n}{df\PYZus{}imported}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{level}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{df\PYZus{}imported} \PY{o}{=} \PY{n}{grouped}\PY{o}{.}\PY{n}{last}\PY{p}{(}\PY{p}{)}
+        \PY{n}{df\PYZus{}imported}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{n}{memory\PYZus{}usage}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 760 entries, 2016-05-17 20:00:00 to 2016-06-18 19:00:00
+Data columns (total 25 columns):
+\$                           757 non-null float64
+dateStamp                   128 non-null object
+dew\_point                   757 non-null float64
+modelCode                   128 non-null object
+modelRun                    128 non-null float64
+periodSchedule              128 non-null float64
+pressure                    757 non-null float64
+screen\_relative\_humidity    757 non-null float64
+sea\_temperature             757 non-null float64
+surf\_max                    128 non-null float64
+surf\_min                    128 non-null float64
+swell\_direction1            128 non-null float64
+swell\_direction2            128 non-null float64
+swell\_direction3            128 non-null float64
+swell\_height1               128 non-null float64
+swell\_height2               128 non-null float64
+swell\_height3               128 non-null float64
+swell\_period1               128 non-null float64
+swell\_period2               128 non-null float64
+swell\_period3               128 non-null float64
+temperature                 757 non-null float64
+wave\_height                 757 non-null float64
+wave\_period                 757 non-null float64
+wind\_direction              757 non-null object
+wind\_speed                  757 non-null float64
+dtypes: float64(22), object(3)
+    \end{Verbatim}
+
+    \subsection{3.2 Gauss Markov
+Assumptions}\label{gauss-markov-assumptions}
+
+\subsubsection{3.2.2 No Perfect
+Collinearity}\label{no-perfect-collinearity}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{df\PYZus{}retained} \PY{o}{=} \PY{n}{df\PYZus{}imported}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dew\PYZus{}point}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pressure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{screen\PYZus{}relative\PYZus{}humidity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{temperature}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wave\PYZus{}height}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wave\PYZus{}period}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wind\PYZus{}speed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{surf\PYZus{}max}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{surf\PYZus{}min}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+        \PY{k}{with} \PY{n}{sns}\PY{o}{.}\PY{n}{axes\PYZus{}style}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{:}
+            \PY{n}{mask} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros\PYZus{}like}\PY{p}{(}\PY{n}{df\PYZus{}retained}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{bool}\PY{p}{)}
+            \PY{n}{mask}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{triu\PYZus{}indices\PYZus{}from}\PY{p}{(}\PY{n}{mask}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{k+kc}{True}
+            \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{11}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{)}\PY{p}{)}
+            \PY{n}{cmap} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{diverging\PYZus{}palette}\PY{p}{(}\PY{l+m+mi}{220}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{as\PYZus{}cmap}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+            \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{df\PYZus{}retained}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{mask}\PY{o}{=}\PY{n}{mask}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{cmap}\PY{p}{,} \PY{n}{vmax}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+                        \PY{n}{square}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+                        \PY{n}{linewidths}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{cbar\PYZus{}kws}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{shrink}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{o}{.}\PY{l+m+mi}{5}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{wave-forecast-hand-in_files/wave-forecast-hand-in_6_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{n}{default\PYZus{}fig\PYZus{}width}\PY{p}{,}\PY{l+m+mi}{4}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{n}{sharex}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{sharey}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{regplot}\PY{p}{(}\PY{n}{df\PYZus{}retained}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{temperature}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{df\PYZus{}retained}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dew\PYZus{}point}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{regplot}\PY{p}{(}\PY{n}{df\PYZus{}retained}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{screen\PYZus{}relative\PYZus{}humidity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{df\PYZus{}retained}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dew\PYZus{}point}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{regplot}\PY{p}{(}\PY{n}{df\PYZus{}retained}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{surf\PYZus{}max}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{df\PYZus{}retained}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{surf\PYZus{}min}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{regplot}\PY{p}{(}\PY{n}{df\PYZus{}retained}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wind\PYZus{}speed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{df\PYZus{}retained}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wave\PYZus{}height}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x3b564b8a20>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{wave-forecast-hand-in_files/wave-forecast-hand-in_7_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{4. Transformation and
+Modelling}\label{transformation-and-modelling}
+
+\subsection{4.1 Target Variable}\label{target-variable}
+
+Calculate the average and convert feet to meters.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{target\PYZus{}var} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{surf\PYZus{}avg}\PY{l+s+s1}{\PYZsq{}}
+        \PY{k}{def} \PY{n+nf}{calculate\PYZus{}target\PYZus{}variable}\PY{p}{(}\PY{n}{df\PYZus{}in}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(} \PY{p}{(}\PY{p}{(}\PY{n}{df\PYZus{}in}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{surf\PYZus{}max}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{n}{df\PYZus{}in}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{surf\PYZus{}min}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{l+m+mf}{0.3048}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{n}{target\PYZus{}var} \PY{p}{)}
+        \PY{n}{s\PYZus{}target} \PY{o}{=} \PY{n}{calculate\PYZus{}target\PYZus{}variable}\PY{p}{(}\PY{n}{df\PYZus{}imported}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{available target values:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s\PYZus{}target}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plot\PYZus{}datetime\PYZus{}series}\PY{p}{(}\PY{n}{s\PYZus{}target}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wave Height}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average Wave Height in m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+available target values: 128
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{wave-forecast-hand-in_files/wave-forecast-hand-in_9_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{4.2 Interpolation}\label{interpolation}
+
+Wind direction is omitted since it is non-numerical.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} Fill few missing values in explanatory data}
+        \PY{k}{def} \PY{n+nf}{interpolate\PYZus{}missing\PYZus{}values}\PY{p}{(}\PY{n}{df\PYZus{}in}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n}{df\PYZus{}in}\PY{o}{.}\PY{n}{resample}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{H}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{interpolate}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
+        \PY{n}{df\PYZus{}interpolated} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}
+            \PY{p}{[}
+                \PY{n}{df\PYZus{}imported}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wave\PYZus{}height}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wind\PYZus{}speed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wave\PYZus{}period}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pressure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dew\PYZus{}point}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{screen\PYZus{}relative\PYZus{}humidity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{temperature}\PY{l+s+s1}{\PYZsq{}} \PY{p}{]}\PY{p}{]}\PY{p}{,}
+                \PY{n}{s\PYZus{}target}
+            \PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{df\PYZus{}interpolated} \PY{o}{=} \PY{n}{interpolate\PYZus{}missing\PYZus{}values}\PY{p}{(}\PY{n}{df\PYZus{}interpolated}\PY{p}{)}
+        
+        \PY{n}{s\PYZus{}target} \PY{o}{=} \PY{n}{df\PYZus{}interpolated}\PY{p}{[}\PY{n}{target\PYZus{}var}\PY{p}{]}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target values after interpolation:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s\PYZus{}target}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{)}  
+        \PY{n}{plot\PYZus{}datetime\PYZus{}series}\PY{p}{(}\PY{n}{s\PYZus{}target}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Interpolated Wave Height}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average Wave Height in m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+target values after interpolation: 763
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{wave-forecast-hand-in_files/wave-forecast-hand-in_11_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{4.3 Determination of Lag}\label{determination-of-lag}
+
+In order to find out the lag between target variable and each of the
+explanatory variables, a cross correlation for all lags between 0h and
+24h is computed. Afterwards, the correlation of the best fitting lags is
+looked at more closely.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k}{def} \PY{n+nf}{cross\PYZus{}correlation}\PY{p}{(}\PY{n}{s1}\PY{p}{,} \PY{n}{s2}\PY{p}{,} \PY{n}{minlag}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{maxlag}\PY{o}{=}\PY{l+m+mi}{72}\PY{p}{)}\PY{p}{:}
+            \PY{k}{if}\PY{p}{(}\PY{p}{(}\PY{n}{s1}\PY{o}{.}\PY{n}{index} \PY{o}{!=} \PY{n}{s2}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{o}{.}\PY{n}{any}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Indexes differ!}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                \PY{k}{return}
+            \PY{n}{s\PYZus{}result} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{n+nb}{range}\PY{p}{(}\PY{n}{minlag}\PY{p}{,} \PY{n}{maxlag}\PY{p}{)}\PY{p}{)}
+            \PY{k}{for} \PY{n}{lag} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{minlag}\PY{p}{,} \PY{n}{maxlag}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                \PY{n}{s\PYZus{}result}\PY{p}{[}\PY{n}{lag}\PY{p}{]} \PY{o}{=} \PY{n}{s1}\PY{o}{.}\PY{n}{shift}\PY{p}{(}\PY{n}{lag}\PY{p}{)}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{n}{s2}\PY{p}{)}
+            \PY{k}{return} \PY{n}{s\PYZus{}result}
+        
+        \PY{k}{def} \PY{n+nf}{abs\PYZus{}max\PYZus{}at}\PY{p}{(}\PY{n}{s}\PY{p}{)}\PY{p}{:}
+            \PY{n}{max\PYZus{}index} \PY{o}{=} \PY{n}{s}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+            \PY{n}{max\PYZus{}value} \PY{o}{=} \PY{n}{s}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+            \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{v} \PY{o+ow}{in} \PY{n}{s}\PY{o}{.}\PY{n}{iteritems}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                \PY{k}{if} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{v}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{max\PYZus{}value}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{max\PYZus{}index} \PY{o}{=} \PY{n}{i}
+                    \PY{n}{max\PYZus{}value} \PY{o}{=} \PY{n}{v}
+            \PY{k}{return} \PY{n}{max\PYZus{}index}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{df\PYZus{}explanatory} \PY{o}{=} \PY{n}{df\PYZus{}interpolated}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{surf\PYZus{}avg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} for each explanatory variable, plot lags and determine optimum}
+        \PY{n}{optimal\PYZus{}lags} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{n}{df\PYZus{}explanatory}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+        \PY{n}{nrows} \PY{o}{=} \PY{n}{math}\PY{o}{.}\PY{n}{ceil}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}explanatory}\PY{o}{.}\PY{n}{columns}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{3}\PY{p}{)}
+        \PY{n}{fig}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{nrows}\PY{o}{=}\PY{n}{nrows}\PY{p}{,} \PY{n}{ncols}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{sharey}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{sharex}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{n}{default\PYZus{}fig\PYZus{}width}\PY{p}{,}\PY{n}{nrows}\PY{o}{*}\PY{l+m+mf}{2.5}\PY{p}{)}\PY{p}{)}
+        \PY{n}{fig}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{hspace}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{)}
+        \PY{k}{for} \PY{n}{i}\PY{p}{,}\PY{n}{var} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{df\PYZus{}explanatory}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} style: select column, row and color for chart}
+            \PY{n}{row} \PY{o}{=} \PY{n}{math}\PY{o}{.}\PY{n}{floor}\PY{p}{(}\PY{n}{i} \PY{o}{/} \PY{l+m+mi}{3}\PY{p}{)}
+            \PY{n}{col} \PY{o}{=} \PY{n}{i} \PY{o}{\PYZpc{}} \PY{l+m+mi}{3}
+            \PY{k}{if} \PY{n}{nrows} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{:} \PY{n}{axis} \PY{o}{=} \PY{n}{axes}\PY{p}{[}\PY{n}{col}\PY{p}{]}
+            \PY{k}{else}\PY{p}{:} \PY{n}{axis} \PY{o}{=} \PY{n}{axes}\PY{p}{[}\PY{n}{row}\PY{p}{,}\PY{n}{col}\PY{p}{]}
+            \PY{k}{if} \PY{n}{i} \PY{o}{\PYZlt{}} \PY{n+nb}{len}\PY{p}{(}\PY{n}{sns}\PY{o}{.}\PY{n}{color\PYZus{}palette}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{:} \PY{n}{color} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{color\PYZus{}palette}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+            \PY{k}{else}\PY{p}{:} \PY{n}{color} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{color\PYZus{}palette}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{n+nb}{len}\PY{p}{(}\PY{n}{sns}\PY{o}{.}\PY{n}{color\PYZus{}palette}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+            
+            \PY{c+c1}{\PYZsh{} calculate cross correlation and find optimum, save it for later use}
+            \PY{n}{xcorr} \PY{o}{=} \PY{n}{cross\PYZus{}correlation}\PY{p}{(}\PY{n}{df\PYZus{}interpolated}\PY{p}{[}\PY{n}{var}\PY{p}{]}\PY{p}{,} \PY{n}{df\PYZus{}interpolated}\PY{p}{[}\PY{n}{target\PYZus{}var}\PY{p}{]}\PY{p}{,} \PY{n}{maxlag}\PY{o}{=}\PY{l+m+mi}{24}\PY{p}{)}
+            \PY{n}{optimal\PYZus{}lags}\PY{p}{[}\PY{n}{var}\PY{p}{]} \PY{o}{=} \PY{n}{abs\PYZus{}max\PYZus{}at}\PY{p}{(}\PY{n}{xcorr}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{} plot all cross correlations}
+            \PY{n}{axis}\PY{o}{.}\PY{n}{vlines}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{xcorr}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{ymin}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{ymax}\PY{o}{=}\PY{n}{xcorr}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{color}\PY{p}{)}
+            \PY{n}{axis}\PY{o}{.}\PY{n}{axhline}\PY{p}{(}\PY{n}{color}\PY{o}{=}\PY{n}{color}\PY{p}{)}
+            \PY{n}{axis}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{n}{var} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ lags by }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}0:g\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{optimal\PYZus{}lags}\PY{p}{[}\PY{n}{var}\PY{p}{]}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{h}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} delete unused charts}
+        \PY{n}{fig}\PY{o}{.}\PY{n}{delaxes}\PY{p}{(}\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+        \PY{n}{fig}\PY{o}{.}\PY{n}{delaxes}\PY{p}{(}\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{wave-forecast-hand-in_files/wave-forecast-hand-in_14_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The highest correlation seems to be at a lag of about -5 to -15, but is
+different for each variable. - Wind speed appears to have a very high
+lag, just like the wind direction. - Wave height and wave period both
+have a smaller lag.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k}{def} \PY{n+nf}{lag}\PY{p}{(}\PY{n}{df\PYZus{}in}\PY{p}{,} \PY{n}{lags}\PY{o}{=}\PY{n}{optimal\PYZus{}lags}\PY{p}{)}\PY{p}{:}
+             \PY{n}{df\PYZus{}lagged} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+             \PY{k}{for} \PY{n}{var}\PY{p}{,} \PY{n}{lag} \PY{o+ow}{in} \PY{n}{lags}\PY{o}{.}\PY{n}{iteritems}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{var} \PY{o+ow}{in} \PY{n}{df\PYZus{}in}\PY{o}{.}\PY{n}{columns}\PY{p}{:}
+                     \PY{n}{df\PYZus{}lagged} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}
+                         \PY{p}{[}\PY{n}{df\PYZus{}lagged}\PY{p}{,} \PY{n}{df\PYZus{}in}\PY{p}{[}\PY{n}{var}\PY{p}{]}\PY{o}{.}\PY{n}{shift}\PY{p}{(}\PY{n}{lag}\PY{p}{,} \PY{n}{freq}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{H}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{]}\PY{p}{,}
+                         \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}
+                     \PY{p}{)}
+             \PY{k}{for} \PY{n}{var} \PY{o+ow}{in} \PY{n}{df\PYZus{}in}\PY{o}{.}\PY{n}{columns}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{var} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{lags}\PY{o}{.}\PY{n}{index}\PY{p}{:}
+                     \PY{n}{df\PYZus{}lagged}\PY{p}{[}\PY{n}{var}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}in}\PY{p}{[}\PY{n}{var}\PY{p}{]}
+             \PY{k}{return} \PY{n}{df\PYZus{}lagged}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{df\PYZus{}lagged} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}
+                 \PY{n}{lag}\PY{p}{(}\PY{n}{df\PYZus{}explanatory}\PY{p}{,} \PY{n}{optimal\PYZus{}lags}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{s\PYZus{}target}\PY{p}{]}\PY{p}{,} 
+                 \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}
+         \PY{p}{)}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{complete training rows left after lagging:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}lagged}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(lost:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}interpolated}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}lagged}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} update target variable and lose data not described by lagged independent variables anymore}
+         \PY{n}{s\PYZus{}target\PYZus{}lagged} \PY{o}{=} \PY{n}{df\PYZus{}lagged}\PY{p}{[}\PY{n}{target\PYZus{}var}\PY{p}{]}
+         
+         \PY{n}{plot\PYZus{}scatter\PYZus{}correlation}\PY{p}{(}\PY{n}{df\PYZus{}lagged}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{target\PYZus{}var}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{df\PYZus{}lagged}\PY{p}{[}\PY{n}{target\PYZus{}var}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+complete training rows left after lagging: 739 (lost: 24 )
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{wave-forecast-hand-in_files/wave-forecast-hand-in_16_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{4.4 Transforming Wind
+Direction}\label{transforming-wind-direction}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{compass\PYZus{}directions} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NNE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ENE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{E}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ESE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SSE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{S}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SSW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{WSW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{WNW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NNW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{k}{def} \PY{n+nf}{compass\PYZus{}to\PYZus{}degrees}\PY{p}{(}\PY{n}{s\PYZus{}in}\PY{p}{)}\PY{p}{:}
+             \PY{n}{s\PYZus{}out} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{n}{s\PYZus{}in}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{n}{s\PYZus{}in}\PY{o}{.}\PY{n}{name}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i}\PY{p}{,}\PY{n+nb}{dir} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{s\PYZus{}in}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{s\PYZus{}out}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{360} \PY{o}{/} \PY{n+nb}{len}\PY{p}{(}\PY{n}{compass\PYZus{}directions}\PY{p}{)}\PY{p}{)} \PY{o}{*} \PY{n}{compass\PYZus{}directions}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{n+nb}{dir}\PY{p}{)}
+             \PY{k}{return} \PY{n}{s\PYZus{}out}
+         \PY{n}{s\PYZus{}wind\PYZus{}direction} \PY{o}{=} \PY{n}{compass\PYZus{}to\PYZus{}degrees}\PY{p}{(}\PY{n}{df\PYZus{}imported}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wind\PYZus{}direction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} interpolation is dangerous! 1° to 360° will be interpolated with 180°!}
+         \PY{c+c1}{\PYZsh{} instead, forward fill to be sure}
+         \PY{k}{def} \PY{n+nf}{fillna\PYZus{}wind\PYZus{}direction}\PY{p}{(}\PY{n}{s\PYZus{}in}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{s\PYZus{}in}\PY{o}{.}\PY{n}{resample}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{H}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ffill}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{s\PYZus{}wind\PYZus{}direction} \PY{o}{=} \PY{n}{fillna\PYZus{}wind\PYZus{}direction}\PY{p}{(}\PY{n}{s\PYZus{}wind\PYZus{}direction}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{lag\PYZus{}wind\PYZus{}direction}\PY{p}{(}\PY{n}{s\PYZus{}in}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} tie lag of wind\PYZus{}direction to wind\PYZus{}speed}
+             \PY{n}{s\PYZus{}out} \PY{o}{=} \PY{n}{s\PYZus{}in}\PY{o}{.}\PY{n}{shift}\PY{p}{(}\PY{n}{optimal\PYZus{}lags}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wind\PYZus{}speed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{freq}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{H}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} crop to fit on rest of data}
+             \PY{k}{return} \PY{n}{s\PYZus{}out}\PY{p}{[}\PY{n}{df\PYZus{}lagged}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{:}\PY{n}{df\PYZus{}lagged}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+         
+         \PY{n}{s\PYZus{}wind\PYZus{}direction} \PY{o}{=} \PY{n}{lag\PYZus{}wind\PYZus{}direction}\PY{p}{(}\PY{n}{s\PYZus{}wind\PYZus{}direction}\PY{p}{)}
+         
+         \PY{n}{plot\PYZus{}scatter\PYZus{}correlation}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{s\PYZus{}wind\PYZus{}direction}\PY{p}{)}\PY{p}{,} \PY{n}{s\PYZus{}target\PYZus{}lagged}\PY{p}{,} \PY{n}{standardize}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{wave-forecast-hand-in_files/wave-forecast-hand-in_18_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{4.4.1 Sine Cosine
+Transformation}\label{sine-cosine-transformation}
+
+This example illustrates how 360° and 0° have a distance of 0 after sine
+cosine transformation.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k}{def} \PY{n+nf}{degrees\PYZus{}to\PYZus{}sin\PYZus{}cos}\PY{p}{(}\PY{n}{df\PYZus{}in}\PY{p}{,} \PY{n}{columns}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{columns}\PY{p}{)} \PY{o+ow}{is} \PY{o+ow}{not} \PY{n+nb}{list}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{n}{columns}\PY{p}{]}
+             \PY{n}{df\PYZus{}radians} \PY{o}{=} \PY{n}{df\PYZus{}in}\PY{p}{[}\PY{n}{columns}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{deg}\PY{p}{:} \PY{n}{deg} \PY{o}{*} \PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{pi} \PY{o}{/} \PY{l+m+mi}{180}\PY{p}{)}\PY{p}{)}
+             \PY{n}{df\PYZus{}sin} \PY{o}{=} \PY{n}{df\PYZus{}radians}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{series}\PY{p}{:} \PY{n}{series}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{sin}\PY{p}{)}\PY{p}{)}
+             \PY{n}{df\PYZus{}cos} \PY{o}{=} \PY{n}{df\PYZus{}radians}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{series}\PY{p}{:} \PY{n}{series}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{cos}\PY{p}{)}\PY{p}{)}
+             \PY{n}{df\PYZus{}sin}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{n}{col} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}Sin}\PY{l+s+s1}{\PYZsq{}} \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{df\PYZus{}sin}\PY{o}{.}\PY{n}{columns}\PY{p}{]}
+             \PY{n}{df\PYZus{}cos}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{n}{col} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}Cos}\PY{l+s+s1}{\PYZsq{}} \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{df\PYZus{}cos}\PY{o}{.}\PY{n}{columns}\PY{p}{]}
+             \PY{k}{return} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}
+                 \PY{p}{[}
+                     \PY{n}{df\PYZus{}in}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}
+                     \PY{n}{df\PYZus{}sin}\PY{p}{,}
+                     \PY{n}{df\PYZus{}cos}
+                 \PY{p}{]}\PY{p}{,} 
+                 \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{n}{circular\PYZus{}example} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{degrees}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{[}\PY{l+m+mi}{361}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{)}
+         
+         \PY{n}{display}\PY{p}{(}\PY{n}{circular\PYZus{}example}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{n}{degrees\PYZus{}to\PYZus{}sin\PYZus{}cos}\PY{p}{(}\PY{n}{circular\PYZus{}example}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{degrees}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    
+    \begin{verbatim}
+   degrees
+0      361
+1        1
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+   degrees-Sin  degrees-Cos
+0     0.017452     0.999848
+1     0.017452     0.999848
+    \end{verbatim}
+
+    
+    In the following, the sine cosine transformation is applied to actual
+data.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{k}{def} \PY{n+nf}{transform\PYZus{}wind\PYZus{}direction\PYZus{}sin\PYZus{}cos}\PY{p}{(}\PY{n}{s\PYZus{}in}\PY{p}{)}\PY{p}{:}
+             \PY{n}{df\PYZus{}out} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{s\PYZus{}in}\PY{p}{)}
+             \PY{n}{df\PYZus{}out} \PY{o}{=} \PY{n}{degrees\PYZus{}to\PYZus{}sin\PYZus{}cos}\PY{p}{(}\PY{n}{df\PYZus{}out}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wind\PYZus{}direction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{return} \PY{n}{df\PYZus{}out}
+         \PY{n}{display}\PY{p}{(}\PY{n}{df\PYZus{}imported}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wind\PYZus{}direction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{becomes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{s\PYZus{}wind\PYZus{}direction}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{becomes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{df\PYZus{}wind\PYZus{}direction\PYZus{}sin\PYZus{}cos} \PY{o}{=} \PY{n}{transform\PYZus{}wind\PYZus{}direction\PYZus{}sin\PYZus{}cos}\PY{p}{(}\PY{n}{s\PYZus{}wind\PYZus{}direction}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{n}{df\PYZus{}wind\PYZus{}direction\PYZus{}sin\PYZus{}cos}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plot\PYZus{}scatter\PYZus{}correlation}\PY{p}{(}
+             \PY{n}{normalize}\PY{p}{(}\PY{n}{df\PYZus{}wind\PYZus{}direction\PYZus{}sin\PYZus{}cos}\PY{p}{)}\PY{p}{,} 
+             \PY{n}{s\PYZus{}target\PYZus{}lagged}
+         \PY{p}{)}
+\end{Verbatim}
+
+    
+    \begin{verbatim}
+                    wind_direction
+2016-05-17 20:00:00             NE
+2016-05-17 21:00:00             NE
+2016-05-17 22:00:00            ENE
+2016-05-17 23:00:00             NE
+2016-05-18 00:00:00             NE
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+becomes
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+                     wind_direction
+2016-05-19 01:00:00            22.5
+2016-05-19 02:00:00            22.5
+2016-05-19 03:00:00            45.0
+2016-05-19 04:00:00            22.5
+2016-05-19 05:00:00            45.0
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+becomes
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+                     wind_direction-Sin  wind_direction-Cos
+2016-05-19 01:00:00            0.382683            0.923880
+2016-05-19 02:00:00            0.382683            0.923880
+2016-05-19 03:00:00            0.707107            0.707107
+2016-05-19 04:00:00            0.382683            0.923880
+2016-05-19 05:00:00            0.707107            0.707107
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{wave-forecast-hand-in_files/wave-forecast-hand-in_22_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{4.4.2 Degree Deviation
+Transformation}\label{degree-deviation-transformation}
+
+The previous approach gives a numerical view on wind direction where 360
+and 0 degrees are equal. However, this doesn't result in a linear
+correlation, which is expected to exist for wind direction.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k}{def} \PY{n+nf}{compute\PYZus{}degree\PYZus{}diff}\PY{p}{(}\PY{n}{degrees\PYZus{}base}\PY{p}{,} \PY{n}{i}\PY{p}{)}\PY{p}{:}
+             \PY{n}{diff} \PY{o}{=} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{degrees\PYZus{}base} \PY{o}{\PYZhy{}} \PY{n}{i}\PY{p}{)} \PY{o}{\PYZpc{}} \PY{l+m+mi}{360}
+             \PY{k}{def} \PY{n+nf}{under\PYZus{}180}\PY{p}{(}\PY{n}{alpha}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if}\PY{p}{(}\PY{n}{alpha} \PY{o}{\PYZgt{}} \PY{l+m+mi}{180}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{return} \PY{l+m+mi}{360} \PY{o}{\PYZhy{}} \PY{n}{alpha}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{k}{return} \PY{n}{alpha}
+             \PY{k}{return} \PY{n}{diff}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{under\PYZus{}180}\PY{p}{)}
+         
+         \PY{n}{degree\PYZus{}corr} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{360}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{degree\PYZus{}corr}\PY{o}{.}\PY{n}{index}\PY{p}{:}
+             \PY{n}{degree\PYZus{}corr}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{compute\PYZus{}degree\PYZus{}diff}\PY{p}{(}\PY{n}{s\PYZus{}wind\PYZus{}direction}\PY{p}{,} \PY{n}{i}\PY{p}{)}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{n}{s\PYZus{}target}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{plot\PYZus{}degree\PYZus{}corr}\PY{p}{(}\PY{n}{degree\PYZus{}corr}\PY{p}{)}\PY{p}{:}
+             \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{floor}\PY{p}{(}\PY{n}{default\PYZus{}fig\PYZus{}width}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{vlines}\PY{p}{(}
+                 \PY{n}{x}\PY{o}{=}\PY{n}{degree\PYZus{}corr}\PY{o}{.}\PY{n}{index}\PY{p}{,} 
+                 \PY{n}{ymin}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}
+                 \PY{n}{ymax}\PY{o}{=}\PY{n}{degree\PYZus{}corr}\PY{o}{.}\PY{n}{values}\PY{p}{,}
+                 \PY{n}{color}\PY{o}{=}\PY{n}{sns}\PY{o}{.}\PY{n}{color\PYZus{}palette}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{axhline}\PY{p}{(}\PY{n}{color}\PY{o}{=}\PY{n}{sns}\PY{o}{.}\PY{n}{color\PYZus{}palette}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Degrees chosen as center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Correlation with surf\PYZus{}avg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xbound}\PY{p}{(}\PY{k+kc}{None}\PY{p}{,} \PY{l+m+mi}{360}\PY{p}{)}
+         
+         \PY{n}{plot\PYZus{}degree\PYZus{}corr}\PY{p}{(}\PY{n}{degree\PYZus{}corr}\PY{p}{)}
+         
+         \PY{n}{max\PYZus{}corr} \PY{o}{=} \PY{n}{degree\PYZus{}corr}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}
+         \PY{n}{max\PYZus{}corr\PYZus{}at} \PY{o}{=} \PY{n}{degree\PYZus{}corr}\PY{p}{[}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{degree\PYZus{}corr}\PY{p}{)} \PY{o}{==} \PY{n}{max\PYZus{}corr}\PY{p}{]}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Highest absolute correlation is }\PY{l+s+si}{\PYZob{}:.3f\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{max\PYZus{}corr}\PY{p}{)} \PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{at}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{max\PYZus{}corr\PYZus{}at}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{degrees.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The inverse is at}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{180}\PY{o}{+}\PY{n}{max\PYZus{}corr\PYZus{}at}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{degrees.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{transform\PYZus{}wind\PYZus{}direction}\PY{p}{(}\PY{n}{df\PYZus{}in}\PY{p}{,} \PY{n}{max\PYZus{}corr\PYZus{}at}\PY{o}{=}\PY{n}{max\PYZus{}corr\PYZus{}at}\PY{p}{)}\PY{p}{:}
+             \PY{n}{df\PYZus{}out} \PY{o}{=} \PY{n}{df\PYZus{}in}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+             \PY{n}{df\PYZus{}out}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wind\PYZus{}direction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{compass\PYZus{}to\PYZus{}degrees}\PY{p}{(}\PY{n}{df\PYZus{}out}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wind\PYZus{}direction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+             \PY{n}{df\PYZus{}out}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wind\PYZus{}direction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{fillna\PYZus{}wind\PYZus{}direction}\PY{p}{(}\PY{n}{df\PYZus{}out}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wind\PYZus{}direction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+             \PY{n}{df\PYZus{}out}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wind\PYZus{}direction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{lag\PYZus{}wind\PYZus{}direction}\PY{p}{(}\PY{n}{df\PYZus{}out}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wind\PYZus{}direction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+             \PY{n}{df\PYZus{}out}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wind\PYZus{}direction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{compute\PYZus{}degree\PYZus{}diff}\PY{p}{(}\PY{n}{df\PYZus{}out}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wind\PYZus{}direction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{max\PYZus{}corr\PYZus{}at}\PY{p}{)}
+             \PY{k}{return} \PY{n}{df\PYZus{}out}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{df\PYZus{}transformed} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{df\PYZus{}lagged}\PY{p}{,} \PY{n}{df\PYZus{}imported}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wind\PYZus{}direction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{df\PYZus{}transformed} \PY{o}{=} \PY{n}{transform\PYZus{}wind\PYZus{}direction}\PY{p}{(}\PY{n}{df\PYZus{}transformed}\PY{p}{)}
+         
+         
+         \PY{n}{plot\PYZus{}scatter\PYZus{}correlation}\PY{p}{(}\PY{n}{df\PYZus{}transformed}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wind\PYZus{}direction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{df\PYZus{}transformed}\PY{p}{[}\PY{n}{target\PYZus{}var}\PY{p}{]}\PY{p}{,} \PY{n}{standardize}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Highest absolute correlation is 0.400 at 82 degrees.
+The inverse is at 262 degrees.
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{wave-forecast-hand-in_files/wave-forecast-hand-in_24_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{wave-forecast-hand-in_files/wave-forecast-hand-in_24_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{4.4.3 Wind Coefficient}\label{wind-coefficient}
+
+Unite wind direction and wind speed into a single value.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{k}{def} \PY{n+nf}{get\PYZus{}wind\PYZus{}coefficient}\PY{p}{(}\PY{n}{s\PYZus{}dir}\PY{p}{,} \PY{n}{s\PYZus{}speed}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{p}{(}\PY{n}{s\PYZus{}dir} \PY{o}{/} \PY{l+m+mi}{180}\PY{p}{)} \PY{o}{*} \PY{n}{s\PYZus{}speed}
+         
+         \PY{n}{coefficient\PYZus{}degree\PYZus{}corr} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{360}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{coefficient\PYZus{}degree\PYZus{}corr}\PY{o}{.}\PY{n}{index}\PY{p}{:}
+             \PY{n}{s\PYZus{}dir} \PY{o}{=} \PY{n}{compute\PYZus{}degree\PYZus{}diff}\PY{p}{(}\PY{n}{s\PYZus{}wind\PYZus{}direction}\PY{p}{,} \PY{n}{i}\PY{p}{)}
+             \PY{n}{coeff} \PY{o}{=} \PY{n}{get\PYZus{}wind\PYZus{}coefficient}\PY{p}{(}\PY{n}{s\PYZus{}dir}\PY{p}{,} \PY{n}{df\PYZus{}transformed}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wind\PYZus{}speed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+             \PY{n}{coefficient\PYZus{}degree\PYZus{}corr}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{coeff}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{n}{s\PYZus{}target}\PY{p}{)}
+         \PY{n}{plot\PYZus{}degree\PYZus{}corr}\PY{p}{(}\PY{n}{coefficient\PYZus{}degree\PYZus{}corr}\PY{p}{)}
+         
+         \PY{n}{max\PYZus{}corr} \PY{o}{=} \PY{n}{coefficient\PYZus{}degree\PYZus{}corr}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}
+         \PY{n}{max\PYZus{}corr\PYZus{}at} \PY{o}{=} \PY{n}{coefficient\PYZus{}degree\PYZus{}corr}\PY{p}{[}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{coefficient\PYZus{}degree\PYZus{}corr}\PY{p}{)} \PY{o}{==} \PY{n}{max\PYZus{}corr}\PY{p}{]}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Highest absolute correlation is }\PY{l+s+si}{\PYZob{}:.3f\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{max\PYZus{}corr}\PY{p}{)} \PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{at}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{max\PYZus{}corr\PYZus{}at}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{degrees.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{add\PYZus{}wind\PYZus{}coefficient}\PY{p}{(}\PY{n}{df\PYZus{}in}\PY{p}{)}\PY{p}{:}
+             \PY{n}{df\PYZus{}out} \PY{o}{=} \PY{n}{df\PYZus{}in}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+             \PY{n}{df\PYZus{}out}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wind\PYZus{}coefficient}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{get\PYZus{}wind\PYZus{}coefficient}\PY{p}{(}
+                 \PY{n}{compute\PYZus{}degree\PYZus{}diff}\PY{p}{(}\PY{n}{s\PYZus{}wind\PYZus{}direction}\PY{p}{,} \PY{n}{max\PYZus{}corr\PYZus{}at}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{df\PYZus{}in}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wind\PYZus{}speed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{p}{)}
+             \PY{k}{return} \PY{n}{df\PYZus{}out}
+         
+         \PY{n}{df\PYZus{}transformed} \PY{o}{=} \PY{n}{add\PYZus{}wind\PYZus{}coefficient}\PY{p}{(}\PY{n}{df\PYZus{}transformed}\PY{p}{)}
+         
+         \PY{n}{plot\PYZus{}scatter\PYZus{}correlation}\PY{p}{(}\PY{n}{df\PYZus{}transformed}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wind\PYZus{}coefficient}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{df\PYZus{}transformed}\PY{p}{[}\PY{n}{target\PYZus{}var}\PY{p}{]}\PY{p}{,} \PY{n}{standardize}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} hide outliers}
+         \PY{n}{mask\PYZus{}outliers} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{n}{h} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{h} \PY{o+ow}{in} \PY{n}{df\PYZus{}transformed}\PY{p}{[}\PY{n}{target\PYZus{}var}\PY{p}{]}\PY{p}{]}
+         \PY{n}{plot\PYZus{}scatter\PYZus{}correlation}\PY{p}{(}\PY{n}{df\PYZus{}transformed}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wind\PYZus{}coefficient}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{[}\PY{n}{mask\PYZus{}outliers}\PY{p}{]}\PY{p}{,} \PY{n}{df\PYZus{}transformed}\PY{p}{[}\PY{n}{target\PYZus{}var}\PY{p}{]}\PY{p}{[}\PY{n}{mask\PYZus{}outliers}\PY{p}{]}\PY{p}{,} \PY{n}{standardize}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Highest absolute correlation is 0.724 at 262 degrees.
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{wave-forecast-hand-in_files/wave-forecast-hand-in_26_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{wave-forecast-hand-in_files/wave-forecast-hand-in_26_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{wave-forecast-hand-in_files/wave-forecast-hand-in_26_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{4.5 Moving Averages}\label{moving-averages}
+
+Roll back the lag slightly and apply a rolling mean to smooth out
+predictions.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{k}{def} \PY{n+nf}{moving\PYZus{}averages}\PY{p}{(}\PY{n}{df\PYZus{}in}\PY{p}{,} \PY{n}{window}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{,} \PY{n}{unshift}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{method}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ewma}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+             \PY{n}{df\PYZus{}out} \PY{o}{=} \PY{n}{df\PYZus{}in}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+             \PY{k}{for} \PY{n}{column} \PY{o+ow}{in} \PY{n}{df\PYZus{}out}\PY{o}{.}\PY{n}{columns}\PY{p}{:}
+                 \PY{n}{df\PYZus{}out}\PY{p}{[}\PY{n}{column}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}out}\PY{p}{[}\PY{n}{column}\PY{p}{]}\PY{o}{.}\PY{n}{shift}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{unshift}\PY{p}{,} \PY{n}{freq}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{H}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{method} \PY{o+ow}{is} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ma}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                     \PY{n}{df\PYZus{}out}\PY{p}{[}\PY{n}{column}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{rolling\PYZus{}mean}\PY{p}{(}\PY{n}{df\PYZus{}out}\PY{p}{[}\PY{n}{column}\PY{p}{]}\PY{p}{,} \PY{n}{window}\PY{p}{,} \PY{n}{min\PYZus{}periods}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{method} \PY{o+ow}{is} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ewma}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                     \PY{n}{df\PYZus{}out}\PY{p}{[}\PY{n}{column}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{ewma}\PY{p}{(}\PY{n}{df\PYZus{}out}\PY{p}{[}\PY{n}{column}\PY{p}{]}\PY{p}{,} \PY{n}{span}\PY{o}{=}\PY{n}{window}\PY{p}{)}
+             \PY{k}{return} \PY{n}{df\PYZus{}out}
+         
+         \PY{n}{df\PYZus{}ma} \PY{o}{=} \PY{n}{moving\PYZus{}averages}\PY{p}{(}\PY{n}{df\PYZus{}transformed}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{target\PYZus{}var}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{df\PYZus{}ma}\PY{p}{[}\PY{n}{target\PYZus{}var}\PY{p}{]} \PY{o}{=} \PY{n}{s\PYZus{}target}
+         \PY{n}{plot\PYZus{}scatter\PYZus{}correlation}\PY{p}{(}\PY{n}{df\PYZus{}ma}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{target\PYZus{}var}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{df\PYZus{}ma}\PY{p}{[}\PY{n}{target\PYZus{}var}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{wave-forecast-hand-in_files/wave-forecast-hand-in_28_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{4.6 Validation}\label{validation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{} randomly sample a train and test set}
+         \PY{k}{def} \PY{n+nf}{split\PYZus{}dataset}\PY{p}{(}\PY{n}{df\PYZus{}in}\PY{p}{,} \PY{n}{percent\PYZus{}test}\PY{p}{)}\PY{p}{:}
+             \PY{n}{total\PYZus{}size} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}in}\PY{p}{)}
+             \PY{n}{test\PYZus{}set\PYZus{}size} \PY{o}{=} \PY{n}{math}\PY{o}{.}\PY{n}{floor}\PY{p}{(}\PY{n}{percent\PYZus{}test} \PY{o}{*} \PY{n}{total\PYZus{}size}\PY{p}{)}
+             \PY{n}{df\PYZus{}train} \PY{o}{=} \PY{n}{df\PYZus{}in}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+             \PY{n}{record\PYZus{}labels} \PY{o}{=} \PY{p}{[} \PY{n}{df\PYZus{}train}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{n}{randint}\PY{p}{]} \PY{k}{for} \PY{n}{randint} \PY{o+ow}{in} \PY{n}{random}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{total\PYZus{}size}\PY{p}{)}\PY{p}{,} \PY{n}{test\PYZus{}set\PYZus{}size}\PY{p}{)} \PY{p}{]}
+             \PY{n}{df\PYZus{}test} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df\PYZus{}train}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{record\PYZus{}labels}\PY{p}{]}\PY{p}{)}
+             \PY{n}{df\PYZus{}train} \PY{o}{=} \PY{n}{df\PYZus{}train}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{record\PYZus{}labels}\PY{p}{)}
+             \PY{k}{return} \PY{n}{df\PYZus{}train}\PY{p}{,} \PY{n}{df\PYZus{}test}
+         
+         \PY{k}{def} \PY{n+nf}{split\PYZus{}dataset\PYZus{}day\PYZus{}sensitive}\PY{p}{(}\PY{n}{df\PYZus{}in}\PY{p}{,} \PY{n}{percent\PYZus{}test}\PY{p}{)}\PY{p}{:}
+             \PY{n}{days} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{df\PYZus{}in}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{Timestamp}\PY{o}{.}\PY{n}{date}\PY{p}{)}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+             \PY{n}{total\PYZus{}size} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{days}\PY{p}{)}
+             \PY{n}{test\PYZus{}set\PYZus{}size} \PY{o}{=} \PY{n}{math}\PY{o}{.}\PY{n}{floor}\PY{p}{(}\PY{n}{percent\PYZus{}test} \PY{o}{*} \PY{n}{total\PYZus{}size}\PY{p}{)}
+             \PY{n}{df\PYZus{}train} \PY{o}{=} \PY{n}{df\PYZus{}in}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+             \PY{n}{record\PYZus{}labels} \PY{o}{=} \PY{p}{[} \PY{n+nb}{str}\PY{p}{(}\PY{n}{days}\PY{p}{[}\PY{n}{randint}\PY{p}{]}\PY{p}{)} \PY{k}{for} \PY{n}{randint} \PY{o+ow}{in} \PY{n}{random}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{total\PYZus{}size}\PY{p}{)}\PY{p}{,} \PY{n}{test\PYZus{}set\PYZus{}size}\PY{p}{)} \PY{p}{]}
+             \PY{n}{df\PYZus{}test} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{df\PYZus{}train}\PY{p}{[}\PY{n}{l}\PY{p}{]} \PY{k}{for} \PY{n}{l} \PY{o+ow}{in} \PY{n}{record\PYZus{}labels}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+             \PY{k}{for} \PY{n}{l} \PY{o+ow}{in} \PY{n}{record\PYZus{}labels}\PY{p}{:}
+                 \PY{n}{df\PYZus{}train}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{df\PYZus{}train}\PY{p}{[}\PY{n}{l}\PY{p}{]}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+             \PY{k}{return} \PY{n}{df\PYZus{}train}\PY{p}{,} \PY{n}{df\PYZus{}test}
+         
+         \PY{k}{def} \PY{n+nf}{split\PYZus{}dataset\PYZus{}last\PYZus{}days}\PY{p}{(}\PY{n}{df\PYZus{}in}\PY{p}{,} \PY{n}{days\PYZus{}count}\PY{p}{)}\PY{p}{:}
+             \PY{n}{days} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{df\PYZus{}in}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{Timestamp}\PY{o}{.}\PY{n}{date}\PY{p}{)}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+             \PY{n}{record\PYZus{}labels} \PY{o}{=} \PY{p}{[} \PY{n+nb}{str}\PY{p}{(}\PY{n}{days}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{days\PYZus{}count}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)} \PY{p}{]}
+             \PY{n}{df\PYZus{}train} \PY{o}{=} \PY{n}{df\PYZus{}in}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+             \PY{n}{df\PYZus{}test} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{df\PYZus{}train}\PY{p}{[}\PY{n}{l}\PY{p}{]} \PY{k}{for} \PY{n}{l} \PY{o+ow}{in} \PY{n}{record\PYZus{}labels}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+             \PY{k}{for} \PY{n}{l} \PY{o+ow}{in} \PY{n}{record\PYZus{}labels}\PY{p}{:}
+                 \PY{n}{df\PYZus{}train} \PY{o}{=} \PY{n}{df\PYZus{}train}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{df\PYZus{}train}\PY{p}{[}\PY{n}{l}\PY{p}{]}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+             \PY{k}{return} \PY{n}{df\PYZus{}train}\PY{p}{,} \PY{n}{df\PYZus{}test}
+         
+         \PY{n}{train\PYZus{}set}\PY{p}{,} \PY{n}{test\PYZus{}set} \PY{o}{=} \PY{n}{split\PYZus{}dataset}\PY{p}{(}\PY{n}{df\PYZus{}lagged}\PY{p}{,} \PY{l+m+mf}{0.4}\PY{p}{)}
+         \PY{n}{train\PYZus{}set}\PY{p}{[}\PY{n}{target\PYZus{}var}\PY{p}{]}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Train Set}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{test\PYZus{}set}\PY{p}{[}\PY{n}{target\PYZus{}var}\PY{p}{]}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test Set}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{plot\PYZus{}datetime\PYZus{}series}\PY{p}{(}\PY{p}{[}\PY{n}{train\PYZus{}set}\PY{p}{[}\PY{n}{target\PYZus{}var}\PY{p}{]}\PY{p}{,} \PY{n}{test\PYZus{}set}\PY{p}{[}\PY{n}{target\PYZus{}var}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Random Splitting}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{train\PYZus{}set}\PY{p}{,} \PY{n}{test\PYZus{}set} \PY{o}{=} \PY{n}{split\PYZus{}dataset\PYZus{}day\PYZus{}sensitive}\PY{p}{(}\PY{n}{df\PYZus{}lagged}\PY{p}{,} \PY{l+m+mf}{0.4}\PY{p}{)}
+         \PY{n}{train\PYZus{}set}\PY{p}{[}\PY{n}{target\PYZus{}var}\PY{p}{]}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Train Set}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{test\PYZus{}set}\PY{p}{[}\PY{n}{target\PYZus{}var}\PY{p}{]}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test Set}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{plot\PYZus{}datetime\PYZus{}series}\PY{p}{(}\PY{p}{[}\PY{n}{train\PYZus{}set}\PY{p}{[}\PY{n}{target\PYZus{}var}\PY{p}{]}\PY{p}{,} \PY{n}{test\PYZus{}set}\PY{p}{[}\PY{n}{target\PYZus{}var}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Day Sensitive Splitting}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{train\PYZus{}set}\PY{p}{,} \PY{n}{test\PYZus{}set} \PY{o}{=} \PY{n}{split\PYZus{}dataset\PYZus{}last\PYZus{}days}\PY{p}{(}\PY{n}{df\PYZus{}lagged}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{train\PYZus{}set}\PY{p}{[}\PY{n}{target\PYZus{}var}\PY{p}{]}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Train Set}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{test\PYZus{}set}\PY{p}{[}\PY{n}{target\PYZus{}var}\PY{p}{]}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test Set}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{plot\PYZus{}datetime\PYZus{}series}\PY{p}{(}\PY{p}{[}\PY{n}{train\PYZus{}set}\PY{p}{[}\PY{n}{target\PYZus{}var}\PY{p}{]}\PY{p}{,} \PY{n}{test\PYZus{}set}\PY{p}{[}\PY{n}{target\PYZus{}var}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Last Days Splitting}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{wave-forecast-hand-in_files/wave-forecast-hand-in_30_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{wave-forecast-hand-in_files/wave-forecast-hand-in_30_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{wave-forecast-hand-in_files/wave-forecast-hand-in_30_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{4.7 Fitting the Model}\label{fitting-the-model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{k}{def} \PY{n+nf}{preprocess}\PY{p}{(}\PY{n}{df\PYZus{}in}\PY{p}{,} \PY{n}{drop\PYZus{}unused}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{ma}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+             \PY{n}{explanatory\PYZus{}import\PYZus{}columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wave\PYZus{}height}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wave\PYZus{}period}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wind\PYZus{}speed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wind\PYZus{}direction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dew\PYZus{}point}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pressure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{screen\PYZus{}relative\PYZus{}humidity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{temperature}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{n}{df\PYZus{}out} \PY{o}{=} \PY{n}{df\PYZus{}in}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{n}{explanatory\PYZus{}import\PYZus{}columns}\PY{p}{]}
+             \PY{k}{if}\PY{p}{(}\PY{n}{drop\PYZus{}unused}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{df\PYZus{}out} \PY{o}{=} \PY{n}{df\PYZus{}out}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wave\PYZus{}height}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wind\PYZus{}speed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wind\PYZus{}direction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+             \PY{n}{preprocessing\PYZus{}functions} \PY{o}{=} \PY{p}{[}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{transform\PYZus{}wind\PYZus{}direction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{interpolate\PYZus{}missing\PYZus{}values}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{add\PYZus{}wind\PYZus{}coefficient}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{normalize}\PY{l+s+s1}{\PYZsq{}}
+             \PY{p}{]}
+             \PY{k}{if} \PY{n}{ma}\PY{p}{:}
+                 \PY{n}{preprocessing\PYZus{}functions}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{moving\PYZus{}averages}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{for} \PY{n}{fn} \PY{o+ow}{in} \PY{n}{preprocessing\PYZus{}functions}\PY{p}{:}
+                 \PY{n}{df\PYZus{}out} \PY{o}{=} \PY{n+nb}{globals}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{n}{fn}\PY{p}{]}\PY{p}{(}\PY{n}{df\PYZus{}out}\PY{p}{)}
+             \PY{k}{if}\PY{p}{(}\PY{n}{drop\PYZus{}unused}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{df\PYZus{}out} \PY{o}{=} \PY{n}{df\PYZus{}out}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wave\PYZus{}height}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wind\PYZus{}coefficient}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+             \PY{k}{return} \PY{n}{df\PYZus{}out}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{align\PYZus{}data}\PY{p}{(}\PY{n}{df\PYZus{}in}\PY{p}{,} \PY{n}{s\PYZus{}in}\PY{p}{)}\PY{p}{:}
+             \PY{n}{merged} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{df\PYZus{}in}\PY{p}{,} \PY{n}{s\PYZus{}in}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
+             \PY{n}{df\PYZus{}out} \PY{o}{=} \PY{n}{merged}\PY{p}{[}\PY{n}{df\PYZus{}in}\PY{o}{.}\PY{n}{columns}\PY{p}{]}
+             \PY{n}{s\PYZus{}out} \PY{o}{=} \PY{n}{merged}\PY{p}{[}\PY{n}{s\PYZus{}in}\PY{o}{.}\PY{n}{name}\PY{p}{]}
+             \PY{k}{return} \PY{n}{df\PYZus{}out}\PY{p}{,} \PY{n}{s\PYZus{}out}
+         \PY{k}{def} \PY{n+nf}{train\PYZus{}linear\PYZus{}model}\PY{p}{(}\PY{n}{train\PYZus{}set}\PY{p}{,} \PY{n}{target}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+             \PY{n}{train\PYZus{}set} \PY{o}{=} \PY{n}{train\PYZus{}set}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+             \PY{k}{if} \PY{n}{target} \PY{o+ow}{is} \PY{k+kc}{None}\PY{p}{:}
+                 \PY{n}{target} \PY{o}{=} \PY{n}{train\PYZus{}set}\PY{p}{[}\PY{n}{target\PYZus{}var}\PY{p}{]}
+                 \PY{n}{train\PYZus{}set} \PY{o}{=} \PY{n}{train\PYZus{}set}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{target\PYZus{}var}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} make sure data is aligned}
+                 \PY{n}{train\PYZus{}set}\PY{p}{,} \PY{n}{target} \PY{o}{=} \PY{n}{align\PYZus{}data}\PY{p}{(}\PY{n}{train\PYZus{}set}\PY{p}{,} \PY{n}{target}\PY{p}{)}
+             \PY{n}{model} \PY{o}{=} \PY{n}{linear\PYZus{}model}\PY{o}{.}\PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+             \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}
+                 \PY{n}{train\PYZus{}set}\PY{o}{.}\PY{n}{as\PYZus{}matrix}\PY{p}{(}\PY{p}{)}\PY{p}{,} 
+                 \PY{n}{target}\PY{o}{.}\PY{n}{as\PYZus{}matrix}\PY{p}{(}\PY{p}{)}
+             \PY{p}{)}
+             \PY{n}{ols} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{target}\PY{p}{,} \PY{n}{train\PYZus{}set}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+             \PY{n}{display}\PY{p}{(}\PY{n}{ols}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return} \PY{n}{model}
+         
+         \PY{k}{def} \PY{n+nf}{predict}\PY{p}{(}\PY{n}{test\PYZus{}set}\PY{p}{,} \PY{n}{model}\PY{p}{)}\PY{p}{:}
+             \PY{n}{test\PYZus{}set} \PY{o}{=} \PY{n}{test\PYZus{}set}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+             \PY{k}{if} \PY{n}{target\PYZus{}var} \PY{o+ow}{in} \PY{n}{test\PYZus{}set}\PY{o}{.}\PY{n}{columns}\PY{p}{:}
+                 \PY{n}{test\PYZus{}set} \PY{o}{=} \PY{n}{test\PYZus{}set}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{target\PYZus{}var}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{k}{return} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}
+                 \PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{test\PYZus{}set}\PY{o}{.}\PY{n}{as\PYZus{}matrix}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,} 
+                 \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prediction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                 \PY{n}{index}\PY{o}{=}\PY{n}{test\PYZus{}set}\PY{o}{.}\PY{n}{index}
+             \PY{p}{)}
+\end{Verbatim}
+
+    \subsubsection{4.7.1 Entire Feature Set}\label{entire-feature-set}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{df\PYZus{}train} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}
+             \PY{p}{[}
+                 \PY{n}{preprocess}\PY{p}{(}\PY{n}{df\PYZus{}imported}\PY{p}{,} \PY{n}{ma}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{drop\PYZus{}unused}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{s\PYZus{}target}
+             \PY{p}{]}\PY{p}{,}
+             \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}
+         \PY{p}{)}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{train\PYZus{}set}\PY{p}{,} \PY{n}{test\PYZus{}set} \PY{o}{=} \PY{n}{split\PYZus{}dataset\PYZus{}last\PYZus{}days}\PY{p}{(}\PY{n}{df\PYZus{}train}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{model} \PY{o}{=} \PY{n}{train\PYZus{}linear\PYZus{}model}\PY{p}{(}\PY{n}{train\PYZus{}set}\PY{p}{)}
+         \PY{n}{plot\PYZus{}datetime\PYZus{}series}\PY{p}{(}
+             \PY{p}{[}
+                 \PY{n}{predict}\PY{p}{(}\PY{n}{test\PYZus{}set}\PY{p}{,} \PY{n}{model}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{test\PYZus{}set}\PY{p}{[}\PY{n}{target\PYZus{}var}\PY{p}{]}
+             \PY{p}{]}\PY{p}{,}
+             \PY{n}{title}\PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prediction for last five days after training with all other days}\PY{l+s+s1}{\PYZsq{}}
+         \PY{p}{)}
+\end{Verbatim}
+
+    
+    \begin{verbatim}
+<class 'statsmodels.iolib.summary.Summary'>
+"""
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:               surf_avg   R-squared:                       0.425
+Model:                            OLS   Adj. R-squared:                  0.416
+Method:                 Least Squares   F-statistic:                     47.55
+Date:                Mon, 20 Jun 2016   Prob (F-statistic):           5.23e-64
+Time:                        00:39:45   Log-Likelihood:                -880.49
+No. Observations:                 587   AIC:                             1779.
+Df Residuals:                     578   BIC:                             1818.
+Df Model:                           9                                         
+Covariance Type:            nonrobust                                         
+============================================================================================
+                               coef    std err          t      P>|t|      [95.0% Conf. Int.]
+--------------------------------------------------------------------------------------------
+wave_height                  1.9710      0.207      9.538      0.000         1.565     2.377
+wind_speed                  -1.6388      0.178     -9.213      0.000        -1.988    -1.289
+wave_period                 -0.6432      0.137     -4.695      0.000        -0.912    -0.374
+pressure                     0.1647      0.059      2.810      0.005         0.050     0.280
+dew_point                   -0.0705      0.114     -0.620      0.535        -0.294     0.153
+screen_relative_humidity    -0.0337      0.063     -0.532      0.595        -0.158     0.091
+temperature                  0.6120      0.109      5.628      0.000         0.398     0.826
+wind_direction               1.4844      0.210      7.074      0.000         1.072     1.896
+wind_coefficient             2.0071      0.231      8.679      0.000         1.553     2.461
+==============================================================================
+Omnibus:                        5.747   Durbin-Watson:                   0.014
+Prob(Omnibus):                  0.057   Jarque-Bera (JB):                4.037
+Skew:                           0.031   Prob(JB):                        0.133
+Kurtosis:                       2.599   Cond. No.                         13.0
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+"""
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{wave-forecast-hand-in_files/wave-forecast-hand-in_34_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{4.7.2 No Moving Averages}\label{no-moving-averages}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{df\PYZus{}train} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}
+             \PY{p}{[}
+                 \PY{n}{preprocess}\PY{p}{(}\PY{n}{df\PYZus{}imported}\PY{p}{,} \PY{n}{ma}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{drop\PYZus{}unused}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{s\PYZus{}target}
+             \PY{p}{]}\PY{p}{,}
+             \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}
+         \PY{p}{)}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{train\PYZus{}set}\PY{p}{,} \PY{n}{test\PYZus{}set} \PY{o}{=} \PY{n}{split\PYZus{}dataset\PYZus{}last\PYZus{}days}\PY{p}{(}\PY{n}{df\PYZus{}train}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{model} \PY{o}{=} \PY{n}{train\PYZus{}linear\PYZus{}model}\PY{p}{(}\PY{n}{train\PYZus{}set}\PY{p}{)}
+         \PY{n}{plot\PYZus{}datetime\PYZus{}series}\PY{p}{(}
+             \PY{p}{[}
+                 \PY{n}{predict}\PY{p}{(}\PY{n}{test\PYZus{}set}\PY{p}{,} \PY{n}{model}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{test\PYZus{}set}\PY{p}{[}\PY{n}{target\PYZus{}var}\PY{p}{]}
+             \PY{p}{]}\PY{p}{,}
+             \PY{n}{title}\PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prediction for last five days after training with all other days}\PY{l+s+s1}{\PYZsq{}}
+         \PY{p}{)}
+\end{Verbatim}
+
+    
+    \begin{verbatim}
+<class 'statsmodels.iolib.summary.Summary'>
+"""
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:               surf_avg   R-squared:                       0.383
+Model:                            OLS   Adj. R-squared:                  0.374
+Method:                 Least Squares   F-statistic:                     39.94
+Date:                Mon, 20 Jun 2016   Prob (F-statistic):           2.57e-55
+Time:                        00:39:45   Log-Likelihood:                -901.18
+No. Observations:                 587   AIC:                             1820.
+Df Residuals:                     578   BIC:                             1860.
+Df Model:                           9                                         
+Covariance Type:            nonrobust                                         
+============================================================================================
+                               coef    std err          t      P>|t|      [95.0% Conf. Int.]
+--------------------------------------------------------------------------------------------
+wave_height                  1.0127      0.113      8.957      0.000         0.791     1.235
+wind_speed                  -0.6323      0.104     -6.058      0.000        -0.837    -0.427
+wave_period                 -0.0523      0.074     -0.707      0.480        -0.198     0.093
+pressure                     0.0544      0.056      0.972      0.331        -0.056     0.164
+dew_point                   -0.1076      0.089     -1.207      0.228        -0.283     0.068
+screen_relative_humidity     0.0115      0.053      0.216      0.829        -0.093     0.116
+temperature                  0.4631      0.090      5.137      0.000         0.286     0.640
+wind_direction               0.6329      0.127      4.977      0.000         0.383     0.883
+wind_coefficient             1.0423      0.143      7.294      0.000         0.762     1.323
+==============================================================================
+Omnibus:                        5.691   Durbin-Watson:                   0.105
+Prob(Omnibus):                  0.058   Jarque-Bera (JB):                7.679
+Skew:                           0.005   Prob(JB):                       0.0215
+Kurtosis:                       3.560   Cond. No.                         7.70
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+"""
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{wave-forecast-hand-in_files/wave-forecast-hand-in_36_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{4.7.3 Features based on Problem
+Knowledge}\label{features-based-on-problem-knowledge}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{df\PYZus{}train} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}
+             \PY{p}{[}
+                 \PY{n}{preprocess}\PY{p}{(}\PY{n}{df\PYZus{}imported}\PY{p}{,} \PY{n}{ma}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{drop\PYZus{}unused}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{s\PYZus{}target}
+             \PY{p}{]}\PY{p}{,}
+             \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}
+         \PY{p}{)}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{train\PYZus{}set}\PY{p}{,} \PY{n}{test\PYZus{}set} \PY{o}{=} \PY{n}{split\PYZus{}dataset\PYZus{}last\PYZus{}days}\PY{p}{(}\PY{n}{df\PYZus{}train}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{model} \PY{o}{=} \PY{n}{train\PYZus{}linear\PYZus{}model}\PY{p}{(}\PY{n}{train\PYZus{}set}\PY{p}{)}
+         \PY{n}{plot\PYZus{}datetime\PYZus{}series}\PY{p}{(}
+             \PY{p}{[}
+                 \PY{n}{predict}\PY{p}{(}\PY{n}{test\PYZus{}set}\PY{p}{,} \PY{n}{model}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{test\PYZus{}set}\PY{p}{[}\PY{n}{target\PYZus{}var}\PY{p}{]}
+             \PY{p}{]}\PY{p}{,}
+             \PY{n}{title}\PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prediction for last four days after training with all other days}\PY{l+s+s1}{\PYZsq{}}
+         \PY{p}{)}
+\end{Verbatim}
+
+    
+    \begin{verbatim}
+<class 'statsmodels.iolib.summary.Summary'>
+"""
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:               surf_avg   R-squared:                       0.246
+Model:                            OLS   Adj. R-squared:                  0.243
+Method:                 Least Squares   F-statistic:                     96.42
+Date:                Mon, 20 Jun 2016   Prob (F-statistic):           5.67e-37
+Time:                        00:39:46   Log-Likelihood:                -971.19
+No. Observations:                 594   AIC:                             1946.
+Df Residuals:                     592   BIC:                             1955.
+Df Model:                           2                                         
+Covariance Type:            nonrobust                                         
+====================================================================================
+                       coef    std err          t      P>|t|      [95.0% Conf. Int.]
+------------------------------------------------------------------------------------
+wave_height          0.6746      0.059     11.395      0.000         0.558     0.791
+wind_coefficient     0.3149      0.062      5.085      0.000         0.193     0.436
+==============================================================================
+Omnibus:                        0.902   Durbin-Watson:                   0.002
+Prob(Omnibus):                  0.637   Jarque-Bera (JB):                0.891
+Skew:                           0.094   Prob(JB):                        0.640
+Kurtosis:                       2.981   Cond. No.                         1.27
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+"""
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{wave-forecast-hand-in_files/wave-forecast-hand-in_38_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{4.7.4 Final Model}\label{final-model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{train\PYZus{}set}\PY{p}{,} \PY{n}{target} \PY{o}{=} \PY{n}{align\PYZus{}data}\PY{p}{(}
+             \PY{n}{preprocess}\PY{p}{(}\PY{n}{df\PYZus{}imported}\PY{p}{,} \PY{n}{ma}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{drop\PYZus{}unused}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{,}
+             \PY{n}{s\PYZus{}target}
+         \PY{p}{)}
+         \PY{n}{final\PYZus{}model} \PY{o}{=} \PY{n}{train\PYZus{}linear\PYZus{}model}\PY{p}{(}\PY{n}{train\PYZus{}set}\PY{p}{,} \PY{n}{target}\PY{p}{)}
+         \PY{n}{plot\PYZus{}datetime\PYZus{}series}\PY{p}{(}
+             \PY{p}{[}
+                 \PY{n}{predict}\PY{p}{(}\PY{n}{train\PYZus{}set}\PY{p}{,} \PY{n}{final\PYZus{}model}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{target}
+             \PY{p}{]}\PY{p}{,}
+             \PY{n}{title}\PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prediction for all days after training with all days}\PY{l+s+s1}{\PYZsq{}}
+         \PY{p}{)}
+\end{Verbatim}
+
+    
+    \begin{verbatim}
+<class 'statsmodels.iolib.summary.Summary'>
+"""
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:               surf_avg   R-squared:                       0.235
+Model:                            OLS   Adj. R-squared:                  0.233
+Method:                 Least Squares   F-statistic:                     112.6
+Date:                Mon, 20 Jun 2016   Prob (F-statistic):           2.29e-43
+Time:                        00:39:46   Log-Likelihood:                -1207.8
+No. Observations:                 734   AIC:                             2420.
+Df Residuals:                     732   BIC:                             2429.
+Df Model:                           2                                         
+Covariance Type:            nonrobust                                         
+====================================================================================
+                       coef    std err          t      P>|t|      [95.0% Conf. Int.]
+------------------------------------------------------------------------------------
+wave_height          0.3693      0.052      7.102      0.000         0.267     0.471
+wind_coefficient     0.5475      0.051     10.652      0.000         0.447     0.648
+==============================================================================
+Omnibus:                       17.090   Durbin-Watson:                   0.002
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               22.441
+Skew:                           0.250   Prob(JB):                     1.34e-05
+Kurtosis:                       3.695   Cond. No.                         1.34
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+"""
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{wave-forecast-hand-in_files/wave-forecast-hand-in_40_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Final Model without Moving
+Averages}\label{final-model-without-moving-averages}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{train\PYZus{}set}\PY{p}{,} \PY{n}{target} \PY{o}{=} \PY{n}{align\PYZus{}data}\PY{p}{(}
+             \PY{n}{preprocess}\PY{p}{(}\PY{n}{df\PYZus{}imported}\PY{p}{,} \PY{n}{ma}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{drop\PYZus{}unused}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{,}
+             \PY{n}{s\PYZus{}target}
+         \PY{p}{)}
+         \PY{n}{final\PYZus{}model} \PY{o}{=} \PY{n}{train\PYZus{}linear\PYZus{}model}\PY{p}{(}\PY{n}{train\PYZus{}set}\PY{p}{,} \PY{n}{target}\PY{p}{)}
+         \PY{n}{plot\PYZus{}datetime\PYZus{}series}\PY{p}{(}
+             \PY{p}{[}
+                 \PY{n}{predict}\PY{p}{(}\PY{n}{train\PYZus{}set}\PY{p}{,} \PY{n}{final\PYZus{}model}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{target}
+             \PY{p}{]}\PY{p}{,}
+             \PY{n}{title}\PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prediction for all days after training with all days}\PY{l+s+s1}{\PYZsq{}}
+         \PY{p}{)}
+\end{Verbatim}
+
+    
+    \begin{verbatim}
+<class 'statsmodels.iolib.summary.Summary'>
+"""
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:               surf_avg   R-squared:                       0.235
+Model:                            OLS   Adj. R-squared:                  0.233
+Method:                 Least Squares   F-statistic:                     112.6
+Date:                Mon, 20 Jun 2016   Prob (F-statistic):           2.32e-43
+Time:                        00:39:46   Log-Likelihood:                -1207.8
+No. Observations:                 734   AIC:                             2420.
+Df Residuals:                     732   BIC:                             2429.
+Df Model:                           2                                         
+Covariance Type:            nonrobust                                         
+====================================================================================
+                       coef    std err          t      P>|t|      [95.0% Conf. Int.]
+------------------------------------------------------------------------------------
+wave_height          0.3570      0.049      7.356      0.000         0.262     0.452
+wind_coefficient     0.5007      0.049     10.317      0.000         0.405     0.596
+==============================================================================
+Omnibus:                        1.670   Durbin-Watson:                   0.014
+Prob(Omnibus):                  0.434   Jarque-Bera (JB):                1.509
+Skew:                           0.097   Prob(JB):                        0.470
+Kurtosis:                       3.106   Cond. No.                         1.36
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+"""
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{wave-forecast-hand-in_files/wave-forecast-hand-in_42_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
